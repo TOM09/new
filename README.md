@@ -1,0 +1,2 @@
+# new
+myself new Obj
