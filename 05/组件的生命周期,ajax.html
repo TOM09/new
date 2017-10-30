@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//组件的生命周期
+		组件从没有诞生到诞生,到就绪上树,到被移除的完整声明周期,都提供了函数接口.
+		组件的生命周期包含三个主要部分:
+		
+			挂载:组件被插入到DOM中.
+			更新:组件被重新渲染,查明DOM是否应该刷新.
+			移除:组件从DOM中移除.
+			
+		react提供生命周期方法:
+			will方法会在某些行为发生之前调用.
+				componentwillMount(){}挂载前立即被调用
+			did方法会在某些行为发生后调用
+				componentdidMount(){}挂载后立即被调用
+			/*当组件更新后会调用此方法
+				componentWillReceiveProps(){}*/
+			当组件做出是否要更新DOM的决定的时候被调用."门神",在改变状态的时候可以选择通过或者不通过
+				shouldComponentUpdate(nextProps,nextState){
+					if(nextState.a>0.8){
+						return true;
+					}
+					return false;
+				}
+			在更新发生之前调用,没有把门的功能.
+				componentWillUpdate(){}
+			在组件移除和销毁前被调用.清理工作应该放在这里.unmount表示下树
+				componentWillUnmount(){}
+				
+		react 表单和验证:
+				
+		</script>
+	</body>
+</html>
