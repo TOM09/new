@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue</title>
+	</head>
+	<body>
+		<div id="mybox">
+			<p>
+				<input type="text" name="" id="" value="" v-model="info" v-on:keyup.enter="add()">
+			</p>
+			<ul>
+
+				<li v-for="key in todos">
+					{{key}}
+					<input type="button" value="×"  v-on:click="delate($index)"/>
+				</li>
+
+			</ul>
+		</div>
+
+		<script type="text/javascript" src="public/bundle.js"></script>
+	</body>
+</html>
