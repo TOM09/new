@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue</title>
+	</head>
+	<body>
+		<!--计算属性例子-->
+		<div id="mybox">
+			<p>
+				{{b}}
+				<input type="text" v-model="a" number/>
+			</p>
+			<p>
+				<hr />
+				爱好
+				<input type="checkbox" name="hobby" v-model="hobby" value="篮球"/>篮球
+				<input type="checkbox" name="hobby" v-model="hobby" value="足球"/>足球
+				<input type="checkbox" name="hobby" v-model="hobby" value="网球"/>网球
+					
+				<hr />
+				{{hobby}}
+			</p>
+			<p>
+				<select v-model="jiguan" multiple>
+					<option value="beijing"></option>
+					<option value="sz"></option>
+wh					<option value="beijing"></option>
+				</select>
+				<h1>我的籍贯:{{jiguan}}</h1>
+			</p>
+		
+		</div>
+		<script type="text/javascript" src="public/bundle.js"></script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue</title>
+		<style type="text/css">
+			.pp{
+				width:100px;
+				height:100px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mybox">
+			<p>
+				<h1>{{a}}</h1>
+				<h1>{{b}}</h1>
+				<h1>{{c}}</h1>
+				<h1>{{d}}</h1>
+				<input type="button" name="" id="" value="按我" v-on:click="add()">
+			</p>
+			<hr>
+			<div>
+				{{{somehtml}}}
+			</div>
+			<p id = "{{d}}">
+				我是p
+			</p>
+			<p>
+				{{txt|uppercase}}
+			</p>
+			<p>
+				{{txt|uppercase}}
+			</p>
+			<hr>
+			<p class="pp" v-show="ppshow">
+			</p>
+			<button v-on:click="changeppshow">按我</button>
+		</div>
+
+		<script type="text/javascript" src="public/bundle.js"></script>
+	</body>
+</html>
