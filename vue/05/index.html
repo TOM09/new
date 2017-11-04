@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue</title>
+		<style type="text/css">
+			.box{
+				width: 200px;
+				height: 200px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<!--计算属性例子-->
+		<div id="app">
+			<div class="box" :style="{backgroundColor: 'rgb('+color.r+','+color.g+','+color.b+')'}"></div>
+			<!--<my-compo></my-compo>-->
+			{{color|json}}
+			<!--<input type="range" min="0" max="255" v-model="color.r" />-->
+			<range-bar :color="color" colorname="r" chinesename ="红"></range-bar>
+			<range-bar :color="color" colorname="g" chinesename ="绿"></range-bar>
+			<range-bar :color="color" colorname="b" chinesename ="蓝"></range-bar>
+		</div>
+		<script type="text/javascript" src="public/bundle.js"></script>
+	</body>
+</html>
