@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue</title>
+		<style type="text/css">
+			.table,tr,td{
+				border: 1px solid red;
+			}
+			td{
+				width: 100px;
+				line-height: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--计算属性例子-->
+		<div id="app">
+			{{cars|json}}
+			<table class="car">
+				<tr is="car-bar" v-for="item in cars" :item="item"></car-bar>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>总价</td>
+					<td>{{total}}</td>
+				</tr>
+					
+			</table>
+		</div>
+		<script type="text/javascript" src="public/bundle.js"></script>
+		<script type="text/javascript" src="jquery-3.1.0.min.js">
+			
+		</script>
+	</body>
+</html>
