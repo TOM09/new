@@ -3,11 +3,11 @@ import Vue from "vue";
 var CarBar = Vue.extend({
 	template:`
 		<tr>
-			<td>{{cars[index].name}}</td>
-			<td>{{cars[index].price}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.price}}</td>
 			<td>
 				<button v-on:click="minus">-</button>
-					{{cars[index].amount}}
+				{{item.amount}}
 				<button v-on:click="add">+</button>
 			</td>
 			<td>
@@ -16,16 +16,18 @@ var CarBar = Vue.extend({
 			
 		</tr>	
 	`,
-	props:["cars","index"],
+	props:["item"],
 	methods:{
 		minus:function(){
+			this.item.amount --;
+			this.item.money = this.calc();
 		},
 		add:function(){
-			this.cars[this.index].amount++;
-			this.cars[this.index].money = this.calc();
+			this.item.amount ++;
+			this.item.money = this.calc();
 		},
 		calc:function(){
-			return this.cars[this.index].amount *this.cars[this.index].price;
+			return this.item.amount*this.item.price
 		}
 	},
 	computed:{

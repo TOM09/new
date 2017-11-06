@@ -1,0 +1,8 @@
+{
+	"result":[
+		{"name":"手机","price":2000,"amount":0,"money":0},
+		{"name":"电脑","price":3000,"amount":0,"money":0},
+		{"name":"空调 ","price":4000,"amount":0,"money":0}
+	]
+}
+ 
