@@ -23,13 +23,13 @@ module.exports = {
 			},
 			{
 				test: /\.js$/,
-					loader: 'vue-loader',
-					options: {
-					loader: {
-						js:'babel-loader!eslint-loader'
+				loader: 'vue-loader',
+				options: {
+					loader:{
+						js:'babel-loader'
 					}
 				}
-			}
+			},
 		]
 	}
 }
