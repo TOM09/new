@@ -132,3 +132,678 @@
 	</body>
 
 </html>
+
+<html>
+
+	<head>
+		<title></title>
+	</head>
+
+	<body>
+		<!--
+		1.创建一个项目文件夹,配置webpcak+babel环境,让webpack可以指导babel去翻译ES6的语法
+		
+		2.首先创建身份证  cnpm init  创建出package.json项目身份证
+		3.(必须之前已经在 -g下安装过webpack:npm install webpack -g)
+			再安装webpack  :cnpm install --save-dev webpack
+		 4.我们创建一个webpack.config.js文件,这个文件是webpack工作的参考,我们对着官方文档
+		 	https://webpack.js.org/configuration/来创建这个js文件.
+		 	文件内的内容:
+		   const path = require('path');
+				module.exports = {
+					//入口  惯例用main.js
+				  entry: "./app/main.js", // string | object | array
+					//出口  惯例用all.js
+				  output: {
+				    path: path.resolve(__dirname, "dist"), // string
+				
+				    filename: "all.js"// string
+				  }
+				}
+			5.在node_modules同级文件夹中建一个app文件夹,里面创建main.js文件和aa.js文件
+			6.aa.js里定义exports.m = 10,main.js里接收var aa = require("./aa.js");
+				并且输出:console.log(aa.m);
+			7.在命令窗口里输入webpack,node_modules同级文件夹将建立一个dist文件夹,里面有all.js,即webpack文件
+			8.目前还不能使用ES6,所以要安装babel来翻译.
+			9.在main.js里   结构
+				var [a,b,c] =[1,2,3]
+				console.log(a);
+				如果能结构出a = 1的话,就说明成功  
+				aa.js文件可以删除了.
+			10.在命令行里输入webpack,同级文件夹里建一个demo.html  用来查看内容
+			11.至此,webpack就已经可以进行标准的CMD模块化开发了
+			12.引入babel去翻译ES6:
+				参考  https://github.com/babel/babel-loader改变webpack.config.js
+				将以下代码复制到webpack.config.js的配置当中
+				表示挂载外置模块:
+				
+				//rules表示规则,test测试文件是否以js结尾,如果是js结尾 且不是在exclude的两个文件
+				夹当中的话,就加载babel-loader,以es2015的方式加载.(ES6)
+					module: {
+					  rules: [
+					    {
+					      test: /\.js$/,
+						      exclude: /(node_modules|bower_components)/,
+						      use: {
+						        loader: 'babel-loader',
+						        options: {
+						          presets: ['es2015']
+						        }
+						      }
+					    }
+					  ]
+					}
+					
+				webpack1和2在配置上差别最大的就是loader的书写方法:
+						module -> rules -> test/use
+					这是标准的webpack2的写法
+				如果教程上有把module写成loader,那就是webpack1.
+				
+			13. 在命令行里安装babel-loader:
+					npm install --save-dev babel-loader
+				会提示需要安装core:
+					npm install --save-dev babel-core
+				再接下来的报错是因为需要安装babel-es2015:
+					npm install --save-dev babel-preset-es2015
+			
+			14.这些过程像是身份证一样 都会记录在package.json中,如果是别的项目直接
+				复制json中的配置和webpack.config.js中的配置即可
+				...插件
+			15.此时运行webpack命令,将自动使用CMD构建app文件中main.js文件,并使用babel翻译
+			 	至此,到babel这步就配置成功.
+			 	
+			 16.下面继续配置react:
+			 	npm install --save-dev react
+			 	npm install --save-dev react-dom
+					 你可能会问:
+						1.react为什么不是bower来安装,而是npm来安装.
+						2.为什么是save-dev,而不是save,也就是说为什么是开发依赖,而不是运行依赖
+						
+			17.在webpack.config.js里增加一个babel翻译的配置项,presets里
+				的es2015项后添加"react",以便翻译jsx语法.s
+				在命令行里添加:npm install --save-dev babel-preset-react
+			18.在webpack.config.js里最下方添加 逗号","和watch:true
+			
+			至此.配置完毕react起步的所有的依赖,我们目前的package.json文件是这样的:
+			
+							{
+				  "name": "aiqianduan_react",
+				  "version": "1.0.0",
+				  "description": "",
+				  "main": "index.js",
+				  "scripts": {
+				    "test": "echo \"Error: no test specified\" && exit 1"
+				  },
+				  "author": "",
+				  "license": "ISC",
+				  "devDependencies": {
+				    "babel-core": "^6.26.0",
+				    "babel-loader": "^7.1.2",
+				    "babel-preset-es2015": "^6.24.1",
+				    "babel-preset-react": "^6.24.1",
+				    "react": "^15.6.1",
+				    "react-dom": "^16.0.0",
+				    "webpack": "^3.8.1"
+				  }
+				}
+			以后可以直接用这个配置下载东西,并且把webpack复制过来就行了
+			
+			
+			
+			
+		jsx的8个语法:
+				1.必须被一个大标签包裹
+				2.标签必须封闭,单标签也是
+				3.注释必须用js注释,html注释不可以
+				4.原生标签的属性必须使用data-作为前缀
+				5.js表达式用单大括号包裹,不能使用if-else  但可以使用三元
+				6.可以运行函数
+				7.使用双大括号表示样式
+				8.小写字母是原生标签,大写是react组件
+				9.可以使用数组,并且会自动解析
+			
+		react中的数据传递三兄弟:state,props,context.
+			-->
+	</body>
+
+</html>
+
+<html>
+
+	<head>
+		<title></title>
+	</head>
+
+	<body>
+		<!--
+		1.创建一个项目文件夹,配置webpcak+babel环境,让webpack可以指导babel去翻译ES6的语法
+		
+		2.首先创建身份证  cnpm init  创建出package.json项目身份证
+		3.(必须之前已经在 -g下安装过webpack:npm install webpack -g)
+			再安装webpack  :cnpm install --save-dev webpack
+		 4.我们创建一个webpack.config.js文件,这个文件是webpack工作的参考,我们对着官方文档
+		 	https://webpack.js.org/configuration/来创建这个js文件.
+		 	文件内的内容:
+		   const path = require('path');
+				module.exports = {
+					//入口  惯例用main.js
+				  entry: "./app/main.js", // string | object | array
+					//出口  惯例用all.js
+				  output: {
+				    path: path.resolve(__dirname, "dist"), // string
+				
+				    filename: "all.js"// string
+				  }
+				}
+			5.在node_modules同级文件夹中建一个app文件夹,里面创建main.js文件和aa.js文件
+			6.aa.js里定义exports.m = 10,main.js里接收var aa = require("./aa.js");
+				并且输出:console.log(aa.m);
+			7.在命令窗口里输入webpack,node_modules同级文件夹将建立一个dist文件夹,里面有all.js,即webpack文件
+			8.目前还不能使用ES6,所以要安装babel来翻译.
+			9.在main.js里   结构
+				var [a,b,c] =[1,2,3]
+				console.log(a);
+				如果能结构出a = 1的话,就说明成功  
+				aa.js文件可以删除了.
+			10.在命令行里输入webpack,同级文件夹里建一个demo.html  用来查看内容
+			11.至此,webpack就已经可以进行标准的CMD模块化开发了
+			12.引入babel去翻译ES6:
+				参考  https://github.com/babel/babel-loader改变webpack.config.js
+				将以下代码复制到webpack.config.js的配置当中
+				表示挂载外置模块:
+				
+				//rules表示规则,test测试文件是否以js结尾,如果是js结尾 且不是在exclude的两个文件
+				夹当中的话,就加载babel-loader,以es2015的方式加载.(ES6)
+					module: {
+					  rules: [
+					    {
+					      test: /\.js$/,
+						      exclude: /(node_modules|bower_components)/,
+						      use: {
+						        loader: 'babel-loader',
+						        options: {
+						          presets: ['es2015']
+						        }
+						      }
+					    }
+					  ]
+					}
+					
+				webpack1和2在配置上差别最大的就是loader的书写方法:
+						module -> rules -> test/use
+					这是标准的webpack2的写法
+				如果教程上有把module写成loader,那就是webpack1.
+				
+			13. 在命令行里安装babel-loader:
+					npm install --save-dev babel-loader
+				会提示需要安装core:
+					npm install --save-dev babel-core
+				再接下来的报错是因为需要安装babel-es2015:
+					npm install --save-dev babel-preset-es2015
+			
+			14.这些过程像是身份证一样 都会记录在package.json中,如果是别的项目直接
+				复制json中的配置和webpack.config.js中的配置即可
+				...插件
+			15.此时运行webpack命令,将自动使用CMD构建app文件中main.js文件,并使用babel翻译
+			 	至此,到babel这步就配置成功.
+			 	
+			 16.下面继续配置react:
+			 	npm install --save-dev react
+			 	npm install --save-dev react-dom
+					 你可能会问:
+						1.react为什么不是bower来安装,而是npm来安装.
+						2.为什么是save-dev,而不是save,也就是说为什么是开发依赖,而不是运行依赖
+						
+			17.在webpack.config.js里增加一个babel翻译的配置项,presets里
+				的es2015项后添加"react",以便翻译jsx语法.s
+				在命令行里添加:npm install --save-dev babel-preset-react
+			18.在webpack.config.js里最下方添加 逗号","和watch:true
+			
+			至此.配置完毕react起步的所有的依赖,我们目前的package.json文件是这样的:
+			
+							{
+				  "name": "aiqianduan_react",
+				  "version": "1.0.0",
+				  "description": "",
+				  "main": "index.js",
+				  "scripts": {
+				    "test": "echo \"Error: no test specified\" && exit 1"
+				  },
+				  "author": "",
+				  "license": "ISC",
+				  "devDependencies": {
+				    "babel-core": "^6.26.0",
+				    "babel-loader": "^7.1.2",
+				    "babel-preset-es2015": "^6.24.1",
+				    "babel-preset-react": "^6.24.1",
+				    "react": "^15.6.1",
+				    "react-dom": "^16.0.0",
+				    "webpack": "^3.8.1"
+				  }
+				}
+			以后可以直接用这个配置下载东西,并且把webpack复制过来就行了
+			
+			
+			
+			
+		jsx的8个语法:
+				1.必须被一个大标签包裹
+				2.标签必须封闭,单标签也是
+				3.注释必须用js注释,html注释不可以
+				4.原生标签的属性必须使用data-作为前缀
+				5.js表达式用单大括号包裹,不能使用if-else  但可以使用三元
+				6.可以运行函数
+				7.使用双大括号表示样式
+				8.小写字母是原生标签,大写是react组件
+				9.可以使用数组,并且会自动解析
+			
+		react中的数据传递三兄弟:state,props,context.
+			-->
+	</body>
+
+</html>
+
+<html>
+
+	<head>
+		<title></title>
+	</head>
+
+	<body>
+		<!--
+		1.创建一个项目文件夹,配置webpcak+babel环境,让webpack可以指导babel去翻译ES6的语法
+		
+		2.首先创建身份证  cnpm init  创建出package.json项目身份证
+		3.(必须之前已经在 -g下安装过webpack:npm install webpack -g)
+			再安装webpack  :cnpm install --save-dev webpack
+		 4.我们创建一个webpack.config.js文件,这个文件是webpack工作的参考,我们对着官方文档
+		 	https://webpack.js.org/configuration/来创建这个js文件.
+		 	文件内的内容:
+		   const path = require('path');
+				module.exports = {
+					//入口  惯例用main.js
+				  entry: "./app/main.js", // string | object | array
+					//出口  惯例用all.js
+				  output: {
+				    path: path.resolve(__dirname, "dist"), // string
+				
+				    filename: "all.js"// string
+				  }
+				}
+			5.在node_modules同级文件夹中建一个app文件夹,里面创建main.js文件和aa.js文件
+			6.aa.js里定义exports.m = 10,main.js里接收var aa = require("./aa.js");
+				并且输出:console.log(aa.m);
+			7.在命令窗口里输入webpack,node_modules同级文件夹将建立一个dist文件夹,里面有all.js,即webpack文件
+			8.目前还不能使用ES6,所以要安装babel来翻译.
+			9.在main.js里   结构
+				var [a,b,c] =[1,2,3]
+				console.log(a);
+				如果能结构出a = 1的话,就说明成功  
+				aa.js文件可以删除了.
+			10.在命令行里输入webpack,同级文件夹里建一个demo.html  用来查看内容
+			11.至此,webpack就已经可以进行标准的CMD模块化开发了
+			12.引入babel去翻译ES6:
+				参考  https://github.com/babel/babel-loader改变webpack.config.js
+				将以下代码复制到webpack.config.js的配置当中
+				表示挂载外置模块:
+				
+				//rules表示规则,test测试文件是否以js结尾,如果是js结尾 且不是在exclude的两个文件
+				夹当中的话,就加载babel-loader,以es2015的方式加载.(ES6)
+					module: {
+					  rules: [
+					    {
+					      test: /\.js$/,
+						      exclude: /(node_modules|bower_components)/,
+						      use: {
+						        loader: 'babel-loader',
+						        options: {
+						          presets: ['es2015']
+						        }
+						      }
+					    }
+					  ]
+					}
+					
+				webpack1和2在配置上差别最大的就是loader的书写方法:
+						module -> rules -> test/use
+					这是标准的webpack2的写法
+				如果教程上有把module写成loader,那就是webpack1.
+				
+			13. 在命令行里安装babel-loader:
+					npm install --save-dev babel-loader
+				会提示需要安装core:
+					npm install --save-dev babel-core
+				再接下来的报错是因为需要安装babel-es2015:
+					npm install --save-dev babel-preset-es2015
+			
+			14.这些过程像是身份证一样 都会记录在package.json中,如果是别的项目直接
+				复制json中的配置和webpack.config.js中的配置即可
+				...插件
+			15.此时运行webpack命令,将自动使用CMD构建app文件中main.js文件,并使用babel翻译
+			 	至此,到babel这步就配置成功.
+			 	
+			 16.下面继续配置react:
+			 	npm install --save-dev react
+			 	npm install --save-dev react-dom
+					 你可能会问:
+						1.react为什么不是bower来安装,而是npm来安装.
+						2.为什么是save-dev,而不是save,也就是说为什么是开发依赖,而不是运行依赖
+						
+			17.在webpack.config.js里增加一个babel翻译的配置项,presets里
+				的es2015项后添加"react",以便翻译jsx语法.s
+				在命令行里添加:npm install --save-dev babel-preset-react
+			18.在webpack.config.js里最下方添加 逗号","和watch:true
+			
+			至此.配置完毕react起步的所有的依赖,我们目前的package.json文件是这样的:
+			
+							{
+				  "name": "aiqianduan_react",
+				  "version": "1.0.0",
+				  "description": "",
+				  "main": "index.js",
+				  "scripts": {
+				    "test": "echo \"Error: no test specified\" && exit 1"
+				  },
+				  "author": "",
+				  "license": "ISC",
+				  "devDependencies": {
+				    "babel-core": "^6.26.0",
+				    "babel-loader": "^7.1.2",
+				    "babel-preset-es2015": "^6.24.1",
+				    "babel-preset-react": "^6.24.1",
+				    "react": "^15.6.1",
+				    "react-dom": "^16.0.0",
+				    "webpack": "^3.8.1"
+				  }
+				}
+			以后可以直接用这个配置下载东西,并且把webpack复制过来就行了
+			
+			
+			
+			
+		jsx的8个语法:
+				1.必须被一个大标签包裹
+				2.标签必须封闭,单标签也是
+				3.注释必须用js注释,html注释不可以
+				4.原生标签的属性必须使用data-作为前缀
+				5.js表达式用单大括号包裹,不能使用if-else  但可以使用三元
+				6.可以运行函数
+				7.使用双大括号表示样式
+				8.小写字母是原生标签,大写是react组件
+				9.可以使用数组,并且会自动解析
+			
+		react中的数据传递三兄弟:state,props,context.
+			-->
+	</body>
+
+</html>
+
+<html>
+
+	<head>
+		<title></title>
+	</head>
+
+	<body>
+		<!--
+		1.创建一个项目文件夹,配置webpcak+babel环境,让webpack可以指导babel去翻译ES6的语法
+		
+		2.首先创建身份证  cnpm init  创建出package.json项目身份证
+		3.(必须之前已经在 -g下安装过webpack:npm install webpack -g)
+			再安装webpack  :cnpm install --save-dev webpack
+		 4.我们创建一个webpack.config.js文件,这个文件是webpack工作的参考,我们对着官方文档
+		 	https://webpack.js.org/configuration/来创建这个js文件.
+		 	文件内的内容:
+		   const path = require('path');
+				module.exports = {
+					//入口  惯例用main.js
+				  entry: "./app/main.js", // string | object | array
+					//出口  惯例用all.js
+				  output: {
+				    path: path.resolve(__dirname, "dist"), // string
+				
+				    filename: "all.js"// string
+				  }
+				}
+			5.在node_modules同级文件夹中建一个app文件夹,里面创建main.js文件和aa.js文件
+			6.aa.js里定义exports.m = 10,main.js里接收var aa = require("./aa.js");
+				并且输出:console.log(aa.m);
+			7.在命令窗口里输入webpack,node_modules同级文件夹将建立一个dist文件夹,里面有all.js,即webpack文件
+			8.目前还不能使用ES6,所以要安装babel来翻译.
+			9.在main.js里   结构
+				var [a,b,c] =[1,2,3]
+				console.log(a);
+				如果能结构出a = 1的话,就说明成功  
+				aa.js文件可以删除了.
+			10.在命令行里输入webpack,同级文件夹里建一个demo.html  用来查看内容
+			11.至此,webpack就已经可以进行标准的CMD模块化开发了
+			12.引入babel去翻译ES6:
+				参考  https://github.com/babel/babel-loader改变webpack.config.js
+				将以下代码复制到webpack.config.js的配置当中
+				表示挂载外置模块:
+				
+				//rules表示规则,test测试文件是否以js结尾,如果是js结尾 且不是在exclude的两个文件
+				夹当中的话,就加载babel-loader,以es2015的方式加载.(ES6)
+					module: {
+					  rules: [
+					    {
+					      test: /\.js$/,
+						      exclude: /(node_modules|bower_components)/,
+						      use: {
+						        loader: 'babel-loader',
+						        options: {
+						          presets: ['es2015']
+						        }
+						      }
+					    }
+					  ]
+					}
+					
+				webpack1和2在配置上差别最大的就是loader的书写方法:
+						module -> rules -> test/use
+					这是标准的webpack2的写法
+				如果教程上有把module写成loader,那就是webpack1.
+				
+			13. 在命令行里安装babel-loader:
+					npm install --save-dev babel-loader
+				会提示需要安装core:
+					npm install --save-dev babel-core
+				再接下来的报错是因为需要安装babel-es2015:
+					npm install --save-dev babel-preset-es2015
+			
+			14.这些过程像是身份证一样 都会记录在package.json中,如果是别的项目直接
+				复制json中的配置和webpack.config.js中的配置即可
+				...插件
+			15.此时运行webpack命令,将自动使用CMD构建app文件中main.js文件,并使用babel翻译
+			 	至此,到babel这步就配置成功.
+			 	
+			 16.下面继续配置react:
+			 	npm install --save-dev react
+			 	npm install --save-dev react-dom
+					 你可能会问:
+						1.react为什么不是bower来安装,而是npm来安装.
+						2.为什么是save-dev,而不是save,也就是说为什么是开发依赖,而不是运行依赖
+						
+			17.在webpack.config.js里增加一个babel翻译的配置项,presets里
+				的es2015项后添加"react",以便翻译jsx语法.s
+				在命令行里添加:npm install --save-dev babel-preset-react
+			18.在webpack.config.js里最下方添加 逗号","和watch:true
+			
+			至此.配置完毕react起步的所有的依赖,我们目前的package.json文件是这样的:
+			
+							{
+				  "name": "aiqianduan_react",
+				  "version": "1.0.0",
+				  "description": "",
+				  "main": "index.js",
+				  "scripts": {
+				    "test": "echo \"Error: no test specified\" && exit 1"
+				  },
+				  "author": "",
+				  "license": "ISC",
+				  "devDependencies": {
+				    "babel-core": "^6.26.0",
+				    "babel-loader": "^7.1.2",
+				    "babel-preset-es2015": "^6.24.1",
+				    "babel-preset-react": "^6.24.1",
+				    "react": "^15.6.1",
+				    "react-dom": "^16.0.0",
+				    "webpack": "^3.8.1"
+				  }
+				}
+			以后可以直接用这个配置下载东西,并且把webpack复制过来就行了
+			
+			
+			
+			
+		jsx的8个语法:
+				1.必须被一个大标签包裹
+				2.标签必须封闭,单标签也是
+				3.注释必须用js注释,html注释不可以
+				4.原生标签的属性必须使用data-作为前缀
+				5.js表达式用单大括号包裹,不能使用if-else  但可以使用三元
+				6.可以运行函数
+				7.使用双大括号表示样式
+				8.小写字母是原生标签,大写是react组件
+				9.可以使用数组,并且会自动解析
+			
+		react中的数据传递三兄弟:state,props,context.
+			-->
+	</body>
+
+</html>
+
+<html>
+
+	<head>
+		<title></title>
+	</head>
+
+	<body>
+		<!--
+		1.创建一个项目文件夹,配置webpcak+babel环境,让webpack可以指导babel去翻译ES6的语法
+		
+		2.首先创建身份证  cnpm init  创建出package.json项目身份证
+		3.(必须之前已经在 -g下安装过webpack:npm install webpack -g)
+			再安装webpack  :cnpm install --save-dev webpack
+		 4.我们创建一个webpack.config.js文件,这个文件是webpack工作的参考,我们对着官方文档
+		 	https://webpack.js.org/configuration/来创建这个js文件.
+		 	文件内的内容:
+		   const path = require('path');
+				module.exports = {
+					//入口  惯例用main.js
+				  entry: "./app/main.js", // string | object | array
+					//出口  惯例用all.js
+				  output: {
+				    path: path.resolve(__dirname, "dist"), // string
+				
+				    filename: "all.js"// string
+				  }
+				}
+			5.在node_modules同级文件夹中建一个app文件夹,里面创建main.js文件和aa.js文件
+			6.aa.js里定义exports.m = 10,main.js里接收var aa = require("./aa.js");
+				并且输出:console.log(aa.m);
+			7.在命令窗口里输入webpack,node_modules同级文件夹将建立一个dist文件夹,里面有all.js,即webpack文件
+			8.目前还不能使用ES6,所以要安装babel来翻译.
+			9.在main.js里   结构
+				var [a,b,c] =[1,2,3]
+				console.log(a);
+				如果能结构出a = 1的话,就说明成功  
+				aa.js文件可以删除了.
+			10.在命令行里输入webpack,同级文件夹里建一个demo.html  用来查看内容
+			11.至此,webpack就已经可以进行标准的CMD模块化开发了
+			12.引入babel去翻译ES6:
+				参考  https://github.com/babel/babel-loader改变webpack.config.js
+				将以下代码复制到webpack.config.js的配置当中
+				表示挂载外置模块:
+				
+				//rules表示规则,test测试文件是否以js结尾,如果是js结尾 且不是在exclude的两个文件
+				夹当中的话,就加载babel-loader,以es2015的方式加载.(ES6)
+					module: {
+					  rules: [
+					    {
+					      test: /\.js$/,
+						      exclude: /(node_modules|bower_components)/,
+						      use: {
+						        loader: 'babel-loader',
+						        options: {
+						          presets: ['es2015']
+						        }
+						      }
+					    }
+					  ]
+					}
+					
+				webpack1和2在配置上差别最大的就是loader的书写方法:
+						module -> rules -> test/use
+					这是标准的webpack2的写法
+				如果教程上有把module写成loader,那就是webpack1.
+				
+			13. 在命令行里安装babel-loader:
+					npm install --save-dev babel-loader
+				会提示需要安装core:
+					npm install --save-dev babel-core
+				再接下来的报错是因为需要安装babel-es2015:
+					npm install --save-dev babel-preset-es2015
+			
+			14.这些过程像是身份证一样 都会记录在package.json中,如果是别的项目直接
+				复制json中的配置和webpack.config.js中的配置即可
+				...插件
+			15.此时运行webpack命令,将自动使用CMD构建app文件中main.js文件,并使用babel翻译
+			 	至此,到babel这步就配置成功.
+			 	
+			 16.下面继续配置react:
+			 	npm install --save-dev react
+			 	npm install --save-dev react-dom
+					 你可能会问:
+						1.react为什么不是bower来安装,而是npm来安装.
+						2.为什么是save-dev,而不是save,也就是说为什么是开发依赖,而不是运行依赖
+						
+			17.在webpack.config.js里增加一个babel翻译的配置项,presets里
+				的es2015项后添加"react",以便翻译jsx语法.s
+				在命令行里添加:npm install --save-dev babel-preset-react
+			18.在webpack.config.js里最下方添加 逗号","和watch:true
+			
+			至此.配置完毕react起步的所有的依赖,我们目前的package.json文件是这样的:
+			
+							{
+				  "name": "aiqianduan_react",
+				  "version": "1.0.0",
+				  "description": "",
+				  "main": "index.js",
+				  "scripts": {
+				    "test": "echo \"Error: no test specified\" && exit 1"
+				  },
+				  "author": "",
+				  "license": "ISC",
+				  "devDependencies": {
+				    "babel-core": "^6.26.0",
+				    "babel-loader": "^7.1.2",
+				    "babel-preset-es2015": "^6.24.1",
+				    "babel-preset-react": "^6.24.1",
+				    "react": "^15.6.1",
+				    "react-dom": "^16.0.0",
+				    "webpack": "^3.8.1"
+				  }
+				}
+			以后可以直接用这个配置下载东西,并且把webpack复制过来就行了
+			
+			
+			
+			
+		jsx的8个语法:
+				1.必须被一个大标签包裹
+				2.标签必须封闭,单标签也是
+				3.注释必须用js注释,html注释不可以
+				4.原生标签的属性必须使用data-作为前缀
+				5.js表达式用单大括号包裹,不能使用if-else  但可以使用三元
+				6.可以运行函数
+				7.使用双大括号表示样式
+				8.小写字母是原生标签,大写是react组件
+				9.可以使用数组,并且会自动解析
+			
+		react中的数据传递三兄弟:state,props,context.
+			-->
+	</body>
+
+</html>
