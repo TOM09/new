@@ -1,5 +1,10 @@
  const path = require('path');
  
+// const path = require('path');
+// const path = require('path');
+// const path = require('path');
+// 
+ 
 module.exports = {
 		//入口  惯例用main.js
 	entry: "./app/main.js", // string | object | array
