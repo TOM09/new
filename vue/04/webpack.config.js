@@ -1,7 +1,7 @@
  const path = require('path');
  
 // const path = ('path');
-// const paath');
+// const ath');
 // const pae('path');
 // 
  
