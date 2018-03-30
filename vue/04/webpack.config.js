@@ -1,6 +1,6 @@
  const path = require('path');
  
-// const path = ('path');
+// const patath');
 // consth');
 // const pae('path');
 // 
