@@ -2,7 +2,7 @@
  
 // const patath');
 // con');
-// const pae('path');
+// conspae('path');
 // 
  
 module.exports = {
